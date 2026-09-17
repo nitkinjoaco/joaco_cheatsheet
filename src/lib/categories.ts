@@ -8,7 +8,7 @@ export const CATEGORIES = {
   backend: {
     label: 'Backend',
     description: 'Servidores, APIs, bases de datos y control de versiones.',
-    topics: 'Node · Express · Git · MySQL · PHP',
+    topics: 'Node · TypeScript · Express · Git · MySQL · PHP',
   },
   frontend: {
     label: 'Frontend',
