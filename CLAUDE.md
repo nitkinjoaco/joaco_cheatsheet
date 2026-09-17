@@ -48,7 +48,7 @@ No hay tests ni linter; la validación es `npm run build` (tipos + esquema del f
 3. `src/lib/cheatsheets.ts` es la **única** capa que lee la colección. `parseId()` separa el id
    `"backend/git"` en `{ category, slug }` y **lanza un error** si el archivo no está directamente
    dentro de una carpeta de categoría válida. Páginas y componentes usan `getCheatsheets()`,
-   `getCheatsheetsByCategory()`, `getHref()`, `getFileName()` y `getBadge()`; no llames a
+   `getCheatsheetsByCategory()`, `getHref()`, `getFileName()`, `getBadge()` y `getIcon()`; no llames a
    `getCollection` directamente.
 4. Rutas: `src/pages/[category]/index.astro` (una por categoría, incluso vacía) y
    `src/pages/[category]/[slug].astro` (usa `render(entry)` → `<Content />` + `headings`, que
@@ -59,6 +59,13 @@ No hay tests ni linter; la validación es `npm run build` (tipos + esquema del f
 Agregar una categoría toca **tres** lugares: la carpeta en `src/content/cheatsheets/`, la entrada
 en `CATEGORIES` (`src/lib/categories.ts`, cuyo orden es el orden de la UI) y la variable
 `--color-<id>` en `src/styles/global.css`.
+
+### Iconos
+
+`getIcon(entry)` busca con `import.meta.glob` una imagen `src/assets/icons/<slug>.{png,jpg,jpeg,webp,svg}`
+(el nombre tiene que coincidir con el del `.md`). `CheatsheetIcon.astro` la muestra con `<Image>` de
+`astro:assets` dentro de `.icon`, o cae en la insignia de texto `.badge` si no hay imagen. Los
+iconos van en `src/assets/`, no en `public/`, para que Astro los optimice.
 
 ### Sistema de color por categoría
 

@@ -127,6 +127,16 @@
     text-transform: lowercase;
   }
 
+  /* Marco del logo de un cheatsheet (cuando hay imagen en src/assets/icons/) */
+  .icon {
+    display: grid;
+    place-items: center;
+    padding: 6px;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
   .cursor {
     display: inline-block;
     width: 0.55ch;

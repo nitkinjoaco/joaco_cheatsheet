@@ -7,7 +7,8 @@ import Prompt from '../components/Prompt.astro';
 import Sidebar from '../components/Sidebar.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import { CATEGORIES, accentStyle } from '../lib/categories';
-import { getBadge, getFileName, getHref, parseId, type Cheatsheet } from '../lib/cheatsheets';
+import CheatsheetIcon from '../components/CheatsheetIcon.astro';
+import { getFileName, getHref, parseId, type Cheatsheet } from '../lib/cheatsheets';
 
 interface Props {
   entry: Cheatsheet;
@@ -61,7 +62,7 @@ const updatedLabel = updated?.toLocaleDateString('es-AR', {
 
         <header class="mt-6 border-b border-line pb-6">
           <div class="flex items-center gap-4">
-            <span class="badge no-ligatures size-14 shrink-0 text-sm">{getBadge(entry)}</span>
+            <CheatsheetIcon entry={entry} size={56} class="text-sm" />
             <div class="min-w-0">
               <a
                 href={`/${category}`}

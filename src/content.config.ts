@@ -12,7 +12,10 @@ const cheatsheets = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    /** Texto corto para la insignia (ej. "git", "</>"). Si falta, se usa el nombre del archivo. */
+    /**
+     * Texto corto para la insignia (ej. "git", "</>"). Solo se ve si no hay un icono en
+     * src/assets/icons/<slug>.png. Si falta, se usa el nombre del archivo.
+     */
     badge: z.string().max(4).optional(),
     /** Orden dentro de la categoría (más chico = primero). */
     order: z.number().default(100),

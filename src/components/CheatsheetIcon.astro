@@ -1,0 +1,32 @@
+---
+/**
+ * Logo de un cheatsheet. Si hay una imagen en src/assets/icons/<slug>.png la muestra;
+ * si no, cae en la insignia de texto (el campo "badge" del frontmatter).
+ */
+import { Image } from 'astro:assets';
+import { getBadge, getIcon, type Cheatsheet } from '../lib/cheatsheets';
+
+interface Props {
+  entry: Cheatsheet;
+  /** Tamaño en píxeles del cuadrado. */
+  size: number;
+  class?: string;
+}
+
+const { entry, size, class: className } = Astro.props;
+const icon = getIcon(entry);
+---
+
+{icon ? (
+  <span class:list={['icon shrink-0', className]} style={`width: ${size}px; height: ${size}px;`}>
+    {/* Astro achica la imagen al compilar (el doble del tamaño, para pantallas retina). */}
+    <Image src={icon} alt="" width={size * 2} class="size-full object-contain" />
+  </span>
+) : (
+  <span
+    class:list={['badge no-ligatures shrink-0', className]}
+    style={`width: ${size}px; height: ${size}px;`}
+  >
+    {getBadge(entry)}
+  </span>
+)}

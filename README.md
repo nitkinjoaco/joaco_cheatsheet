@@ -285,6 +285,9 @@ joaco_cheatsheet/
 ├─ public/
 │  └─ favicon.svg
 ├─ src/
+│  ├─ assets/
+│  │  └─ icons/                 ← logo de cada cheatsheet, con el mismo nombre que el .md
+│  │                              (css.png ↔ css.md). Astro los achica al compilar
 │  ├─ content/
 │  │  ├─ plan.md                ← plan de contenido: qué tiene y qué le falta a cada cheatsheet
 │  │  │                            (no se publica: está afuera de cheatsheets/)
@@ -308,6 +311,7 @@ joaco_cheatsheet/
 │  │  ├─ Sidebar.astro          ← árbol de carpetas/archivos
 │  │  ├─ TableOfContents.astro  ← índice automático ("en esta página")
 │  │  ├─ CategoryCard.astro     ← tarjeta de la landing
+│  │  ├─ CheatsheetIcon.astro   ← logo del cheatsheet (imagen o insignia de texto)
 │  │  └─ CheatsheetCard.astro   ← tarjeta de la página de categoría
 │  ├─ layouts/
 │  │  ├─ BaseLayout.astro       ← <html>, <head>, fuentes, fondo, header
@@ -343,9 +347,12 @@ van con `##` y `###` (arman el índice de la derecha); cada error y cada pregunt
 que se ve como título pero no llena el índice. El orden de trabajo y las decisiones tomadas
 están en `src/content/plan.md`.
 
-**Iconos:** en lugar de un logo `.svg` por cheatsheet (como la referencia), cada uno tiene una
-**insignia de texto** (`git`, `</>`, `ino`) pintada con el color de su categoría. Así agregar un
-cheatsheet no requiere buscar ni dibujar un logo.
+**Iconos:** cada cheatsheet muestra su logo si hay una imagen en `src/assets/icons/` con **el
+mismo nombre que el `.md`** (`css.md` → `css.png`; sirve `.png`, `.jpg`, `.webp` o `.svg`). Si
+no hay imagen (como pasa con `git.md`), se usa una **insignia de texto** (`git`) pintada con el
+color de su categoría. Las imágenes van en `src/assets/` y no en `public/` porque así Astro las
+**optimiza** al compilar: las achica al tamaño en que se ven y las pasa a WebP (el logo de Arduino
+pasa de 268 kB a 3 kB).
 
 ---
 
@@ -383,7 +390,7 @@ Todo pasa **al compilar** (`npm run build`), no en el navegador:
 ---
 title: Git                      # obligatorio
 description: Versionar código y trabajar con GitHub   # obligatorio (se ve en la tarjeta)
-badge: git                      # opcional → texto de la insignia, hasta 4 caracteres
+badge: git                      # opcional → texto de la insignia si no hay icono, hasta 4 caracteres
 order: 3                        # opcional → orden dentro de la categoría (default 100)
 tags: [cli, github]             # opcional
 updated: 2026-09-16             # opcional → "actualizado el…"
@@ -417,7 +424,8 @@ updated: 2026-09-16             # opcional → "actualizado el…"
 2. Completar el frontmatter (`title` y `description` como mínimo).
 3. Escribir el contenido usando `##` para secciones y `###` para subsecciones (el índice se
    genera solo; **no** escribir un "Índice" a mano).
-4. (Opcional) Poner `badge: exp` para el texto de la insignia.
+4. (Opcional) Poner su logo en `src/assets/icons/express.png` (mismo nombre que el `.md`). Si no
+   hay logo, se muestra una insignia de texto: `badge: exp`.
 5. `npm run dev` y abrir `http://localhost:3000/backend/express`.
 6. `git add` + `git commit -m "docs(backend): agrega cheatsheet de express"` + `git push`.
 
@@ -468,6 +476,9 @@ color `--color-<id>` en `src/styles/global.css`.
 | **Content Collections** | Sistema de Astro para tratar una carpeta de `.md` como una "base de datos" tipada. |
 | **Zod** | Librería para declarar la forma que deben tener los datos y validarlos. |
 | **Shiki** | Colorea el código de los bloques usando los mismos temas que VS Code. |
+| **`astro:assets` / `<Image>`** | Componente de Astro que optimiza imágenes al compilar: las achica al tamaño en que se muestran y las convierte a un formato liviano. |
+| **`import.meta.glob`** | Función de Vite (la herramienta que usa Astro por debajo) que busca archivos con un patrón, por ejemplo `../assets/icons/*.png`, y los importa todos juntos. |
+| **WebP** | Formato de imagen moderno que pesa bastante menos que PNG o JPG con la misma calidad. |
 | **Slug** | La parte "amigable" de la URL que sale del nombre del archivo: `git.md` → `/backend/git`. |
 | **Routing basado en archivos** | Cada archivo en `src/pages/` es una URL. `[slug]` entre corchetes es una ruta **dinámica**. |
 | **Isla (island)** | Componente interactivo (ej. React) dentro de una página que es estática en todo lo demás. |
