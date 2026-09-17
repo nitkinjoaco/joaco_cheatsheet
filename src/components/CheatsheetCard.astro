@@ -1,0 +1,38 @@
+---
+/** Tarjeta de un cheatsheet (en la página de su categoría). */
+import { getBadge, getFileName, getHref, type Cheatsheet } from '../lib/cheatsheets';
+
+interface Props {
+  entry: Cheatsheet;
+}
+
+const { entry } = Astro.props;
+const { title, description, tags } = entry.data;
+---
+
+<a
+  href={getHref(entry)}
+  class="group card flex h-full flex-col gap-4 p-5 transition duration-200 hover:-translate-y-0.5 hover:border-(--accent)/60 hover:bg-white/[0.04]"
+>
+  <div class="flex items-center gap-3">
+    <span class="badge no-ligatures size-11 shrink-0 text-xs">{getBadge(entry)}</span>
+    <div class="min-w-0">
+      <h3 class="truncate font-display text-lg font-bold transition-colors group-hover:text-(--accent)">
+        {title}
+      </h3>
+      <p class="font-ui text-xs text-muted">{getFileName(entry)}</p>
+    </div>
+  </div>
+
+  <p class="text-sm text-muted">{description}</p>
+
+  {tags.length > 0 && (
+    <ul class="mt-auto flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <li class="rounded border border-line px-1.5 py-0.5 font-ui text-[11px] text-muted">
+          #{tag}
+        </li>
+      ))}
+    </ul>
+  )}
+</a>

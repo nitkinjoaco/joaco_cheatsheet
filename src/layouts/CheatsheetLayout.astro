@@ -1,0 +1,120 @@
+---
+/** Página de un cheatsheet: ventana con sidebar, contenido e índice. */
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import TerminalWindow from '../components/TerminalWindow.astro';
+import Prompt from '../components/Prompt.astro';
+import Sidebar from '../components/Sidebar.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { CATEGORIES, accentStyle } from '../lib/categories';
+import { getBadge, getFileName, getHref, parseId, type Cheatsheet } from '../lib/cheatsheets';
+
+interface Props {
+  entry: Cheatsheet;
+  headings: MarkdownHeading[];
+}
+
+const { entry, headings } = Astro.props;
+const { category } = parseId(entry);
+const fileName = getFileName(entry);
+const href = getHref(entry);
+const { title, description, tags, updated } = entry.data;
+const hasToc = headings.some((h) => h.depth === 2 || h.depth === 3);
+
+const updatedLabel = updated?.toLocaleDateString('es-AR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout title={title} description={description} wide>
+  <TerminalWindow
+    title={`joaco://cheatsheets/${category}/${fileName}`}
+    style={accentStyle(category)}
+  >
+    <div class="grid lg:grid-cols-[14rem_minmax(0,1fr)] xl:grid-cols-[14rem_minmax(0,1fr)_13rem]">
+      <aside class="hidden border-r border-line bg-sidebar/60 px-3 py-6 lg:block">
+        <div class="sticky top-20">
+          <Sidebar currentCategory={category} currentHref={href} />
+        </div>
+      </aside>
+
+      <div class="min-w-0 px-5 py-6 sm:px-8 lg:px-10 lg:py-8">
+        <!-- En pantallas chicas, el explorador y el índice van plegados arriba -->
+        <div class="mb-6 space-y-3 lg:hidden">
+          <details class="tree card">
+            <summary class="flex cursor-pointer items-center gap-2 px-3 py-2 font-ui text-sm">
+              <span class="tree-arrow text-xs text-muted" aria-hidden="true">
+                ▸
+              </span>
+              ls ~/ <span class="text-muted">· archivos</span>
+            </summary>
+            <div class="border-t border-line p-3">
+              <Sidebar currentCategory={category} currentHref={href} />
+            </div>
+          </details>
+        </div>
+
+        <Prompt path={`~/${category}`} command={`cat ${fileName}`} />
+
+        <header class="mt-6 border-b border-line pb-6">
+          <div class="flex items-center gap-4">
+            <span class="badge no-ligatures size-14 shrink-0 text-sm">{getBadge(entry)}</span>
+            <div class="min-w-0">
+              <a
+                href={`/${category}`}
+                class="font-ui text-xs tracking-widest text-(--accent) uppercase hover:underline"
+              >
+                {CATEGORIES[category].label}
+              </a>
+              <h1 class="font-display text-4xl leading-tight font-bold sm:text-5xl">{title}</h1>
+            </div>
+          </div>
+          <p class="mt-4 max-w-2xl text-muted">{description}</p>
+          {(tags.length > 0 || updatedLabel) && (
+            <div class="mt-4 flex flex-wrap items-center gap-2 font-ui text-xs text-muted">
+              {tags.map((tag) => (
+                <span class="rounded border border-line px-1.5 py-0.5">#{tag}</span>
+              ))}
+              {updatedLabel && <span class="ml-auto">actualizado el {updatedLabel}</span>}
+            </div>
+          )}
+        </header>
+
+        {hasToc && (
+          <details class="tree card mt-6 xl:hidden">
+            <summary class="flex cursor-pointer items-center gap-2 px-3 py-2 font-ui text-sm">
+              <span class="tree-arrow text-xs text-muted" aria-hidden="true">
+                ▸
+              </span>
+              Índice
+            </summary>
+            <div class="border-t border-line p-4">
+              <TableOfContents headings={headings} />
+            </div>
+          </details>
+        )}
+
+        <article class="markdown mt-8">
+          <slot />
+        </article>
+
+        <footer class="mt-12 border-t border-dashed border-line pt-6">
+          <a href={`/${category}`} class="group inline-block">
+            <Prompt path={`~/${category}`} command="cd .." class="group-hover:opacity-80" />
+          </a>
+        </footer>
+      </div>
+
+      {hasToc && (
+        <aside class="hidden border-l border-line px-5 py-8 xl:block">
+          <div class="sticky top-20">
+            <TableOfContents headings={headings} />
+          </div>
+        </aside>
+      )}
+    </div>
+  </TerminalWindow>
+</BaseLayout>

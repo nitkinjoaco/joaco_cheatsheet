@@ -1,0 +1,29 @@
+---
+/**
+ * Marco de ventana de terminal: barra con los tres "semáforos" y un título tipo URL.
+ * Si recibe `href`, toda la ventana es un link (se usa en las tarjetas).
+ */
+interface Props {
+  title: string;
+  href?: string;
+  class?: string;
+  style?: string;
+}
+
+const { title, href, class: className, style } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag href={href} class:list={['window block', className]} style={style}>
+  <div class="relative flex h-10 shrink-0 items-center border-b border-line bg-titlebar/90 px-4">
+    <div class="flex gap-2" aria-hidden="true">
+      <span class="size-3 rounded-full bg-dot-red"></span>
+      <span class="size-3 rounded-full bg-dot-yellow"></span>
+      <span class="size-3 rounded-full bg-dot-green"></span>
+    </div>
+    <p class="no-ligatures absolute inset-x-20 truncate text-center font-ui text-xs text-muted sm:text-sm">
+      {title}
+    </p>
+  </div>
+  <slot />
+</Tag>

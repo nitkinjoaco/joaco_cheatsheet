@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalWindow from '../components/TerminalWindow.astro';
+import Prompt from '../components/Prompt.astro';
+---
+
+<BaseLayout title="404">
+  <TerminalWindow title="joaco://cheatsheets/404" class="mx-auto mt-6 max-w-2xl">
+    <div class="no-ligatures space-y-3 p-6 text-sm sm:p-8">
+      <Prompt>
+        cd <span data-path>./esta-pagina</span>
+      </Prompt>
+      <p class="text-dot-red">
+        bash: cd: <span data-path>./esta-pagina</span>: No such file or directory
+      </p>
+      <Prompt command="cd ~" cursor />
+      <a
+        href="/"
+        class="mt-4 inline-block rounded-md border border-accent/50 bg-accent/10 px-4 py-2 font-ui transition-colors hover:bg-accent/20"
+      >
+        &gt; volver al inicio
+      </a>
+    </div>
+  </TerminalWindow>
+</BaseLayout>
+
+<script>
+  // Muestra la ruta que realmente se pidió
+  document.querySelectorAll('[data-path]').forEach((el) => {
+    el.textContent = window.location.pathname;
+  });
+</script>

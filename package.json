@@ -1,24 +1,36 @@
 {
-  "name": "joaco_cheatsheet",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "joaco-cheatsheet",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Webapp personal de cheatsheets en Markdown con estética de terminal",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "astro": "astro"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nitkinjoaco/joaco_cheatsheet.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/nitkinjoaco/joaco_cheatsheet/issues"
+  "allowScripts": {
+    "esbuild": true
   },
-  "homepage": "https://github.com/nitkinjoaco/joaco_cheatsheet#readme",
   "dependencies": {
-    "typescript": "^7.0.2"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "prettier": "^3.9.7",
+    "prettier-plugin-astro": "^1.0.0",
+    "typescript": "^6.0.3"
   }
 }

@@ -1,0 +1,22 @@
+---
+/** /backend/git, /frontend/html…: una página por cada archivo .md de la colección. */
+import { render } from 'astro:content';
+import CheatsheetLayout from '../../layouts/CheatsheetLayout.astro';
+import { getCheatsheets, parseId, type Cheatsheet } from '../../lib/cheatsheets';
+
+export async function getStaticPaths() {
+  const entries = await getCheatsheets();
+  return entries.map((entry) => ({ params: parseId(entry), props: { entry } }));
+}
+
+interface Props {
+  entry: Cheatsheet;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<CheatsheetLayout entry={entry} headings={headings}>
+  <Content />
+</CheatsheetLayout>
