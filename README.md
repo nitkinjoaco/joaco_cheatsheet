@@ -12,7 +12,7 @@ Necesitás [Node.js](https://nodejs.org) 22.12 o más nuevo.
 
 ```bash
 npm install        # instala las dependencias (solo la primera vez)
-npm run dev        # servidor de desarrollo en http://localhost:4321 (se recarga solo)
+npm run dev        # servidor de desarrollo en http://localhost:3000 (se recarga solo)
 npm run build      # chequea tipos y genera el sitio final en dist/
 npm run preview    # sirve dist/ para verlo como quedaría publicado
 npm run format     # ordena el código con Prettier
@@ -261,7 +261,8 @@ Los cheatsheets se van agregando a medida que los necesito. Lista inicial:
 | Categoría | Cheatsheets | Contenido tentativo |
 | --- | --- | --- |
 | **Backend** | `node.md` | Módulos, `npm`, `package.json`, `fs`, variables de entorno |
-| | `express.md` | Servidor, rutas, `req`/`res`, middlewares, JSON, CORS |
+| | `typescript.md` | Tipos, `tsconfig` para Node 24, uniones, genéricos, utility types |
+| | `express.md` | Express 5 + TypeScript: rutas, `req`/`res`, middlewares, errores, CORS |
 | | `git.md` | `init`/`add`/`commit`/`push`, branches, merge, GitHub |
 | | `mysql.md` | `SELECT`/`INSERT`/`UPDATE`/`DELETE`, `JOIN`, conexión desde Node (`mysql2`) |
 | | `php.md` | Sintaxis, arrays, formularios, conexión a MySQL (PDO) |
@@ -285,14 +286,20 @@ joaco_cheatsheet/
 │  └─ favicon.svg
 ├─ src/
 │  ├─ content/
+│  │  ├─ plan.md                ← plan de contenido: qué tiene y qué le falta a cada cheatsheet
+│  │  │                            (no se publica: está afuera de cheatsheets/)
 │  │  └─ cheatsheets/           ← EL CONTENIDO: la subcarpeta ES la categoría
 │  │     ├─ _plantilla.md       ← plantilla (el "_" hace que no se publique)
 │  │     ├─ backend/
-│  │     │  └─ git.md
+│  │     │  ├─ typescript.md    ← tipos, tsconfig para Node 24, genéricos (order 2)
+│  │     │  ├─ express.md       ← APIs REST con Express 5 + TypeScript (order 3)
+│  │     │  └─ git.md           ← ramas, conflictos, GitHub, deshacer (order 4)
 │  │     ├─ frontend/
-│  │     │  └─ html.md
+│  │     │  ├─ html.md          ← etiquetas, formularios, accesibilidad (order 1)
+│  │     │  ├─ css.md           ← cascada, box model, Flexbox, Grid, responsive (order 2)
+│  │     │  └─ javascript.md    ← DOM, eventos, fetch, async/await (order 3)
 │  │     └─ hardware/
-│  │        └─ arduino.md
+│  │        └─ arduino.md       ← UNO R3: pines, #define, millis, puerto serie (order 1)
 │  ├─ content.config.ts         ← define la colección y valida el frontmatter
 │  ├─ components/
 │  │  ├─ TerminalWindow.astro   ← marco de ventana (semáforos + título tipo URL)
@@ -329,6 +336,12 @@ joaco_cheatsheet/
 `src/content/cheatsheets/backend/git.md` pertenece a Backend y su URL es `/backend/git`. No
 hay que repetir la categoría en el frontmatter, así no puede quedar desincronizada. Si alguien
 crea una carpeta que no está en `lib/categories.ts`, el build falla con un mensaje claro.
+
+**Formato de los cheatsheets:** todos siguen la misma forma: `¿Qué es?` → secciones de uso de
+lo básico a lo avanzado → `Errores comunes` → `Preguntas frecuentes` → `Fuentes`. Las secciones
+van con `##` y `###` (arman el índice de la derecha); cada error y cada pregunta va con `####`,
+que se ve como título pero no llena el índice. El orden de trabajo y las decisiones tomadas
+están en `src/content/plan.md`.
 
 **Iconos:** en lugar de un logo `.svg` por cheatsheet (como la referencia), cada uno tiene una
 **insignia de texto** (`git`, `</>`, `ino`) pintada con el color de su categoría. Así agregar un
@@ -405,7 +418,7 @@ updated: 2026-09-16             # opcional → "actualizado el…"
 3. Escribir el contenido usando `##` para secciones y `###` para subsecciones (el índice se
    genera solo; **no** escribir un "Índice" a mano).
 4. (Opcional) Poner `badge: exp` para el texto de la insignia.
-5. `npm run dev` y abrir `http://localhost:4321/backend/express`.
+5. `npm run dev` y abrir `http://localhost:3000/backend/express`.
 6. `git add` + `git commit -m "docs(backend): agrega cheatsheet de express"` + `git push`.
 
 Para una categoría nueva: crear la carpeta, sumarla en `src/lib/categories.ts` y agregar su
@@ -424,8 +437,9 @@ color `--color-<id>` en `src/styles/global.css`.
   ruta `[category]/[slug].astro`, `markdown.css`, tema de Shiki.
 - [x] **Fase 4 — Navegación:** landing con tarjetas y árbol de archivos, página de categoría,
   `Sidebar`, `TableOfContents`, 404, responsive.
-- [ ] **Fase 5 — Contenido:** hay uno por categoría (`git.md`, `html.md`, `arduino.md`).
-  Faltan: Node, Express, MySQL, PHP, CSS, JavaScript, Next.js/React, sensores, I2C, UART.
+- [ ] **Fase 5 — Contenido:** escritos como guías extensas: `html.md`, `css.md`,
+  `javascript.md`, `typescript.md`, `express.md`, `git.md` y `arduino.md` (plan en
+  `src/content/plan.md`). Faltan: Node, MySQL, PHP, Next.js/React, sensores, I2C, UART.
 - [ ] **Fase 6 — Deploy:** subir a GitHub y conectar con Vercel.
 - [ ] **Fase 7 — Extras (cuando quiera):**
   - Botón "copiar" en los bloques de código.

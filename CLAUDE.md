@@ -25,7 +25,7 @@ y glosario. Al terminar una fase, marcá su casilla en el roadmap del README.
 ## Comandos
 
 ```bash
-npm run dev                 # http://localhost:4321
+npm run dev                 # http://localhost:3000
 npx astro dev --background  # dev server en segundo plano (astro dev stop | status | logs)
 npm run check               # chequeo de tipos de .astro/.ts (astro check)
 npm run build               # astro check + build estático a dist/
