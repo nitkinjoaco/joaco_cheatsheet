@@ -13,3 +13,4 @@ export { TocRail } from './TocRail.jsx';
 export { CodeBlock } from './CodeBlock.jsx';
 export { CommandPalette } from './CommandPalette.jsx';
 export { MeshBackground } from './MeshBackground.jsx';
+export { Markdown } from './Markdown.jsx';

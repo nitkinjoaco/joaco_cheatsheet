@@ -1,6 +1,6 @@
 // Las carpetas y los cheatsheets de NoteFast.
-// Para agregar uno: sumalo en `files` (slug = nombre del archivo sin .md, icon = logo en public/icons)
-// y, si ya tiene contenido, escribilo en src/data/content.js con la clave "carpeta/slug".
+// Para agregar uno: escribí su contenido en src/content/<carpeta>/<slug>.md y sumalo acá en `files`
+// (slug = nombre del archivo sin .md, icon = logo en public/icons).
 
 export const FOLDERS = [
   {
@@ -41,22 +41,22 @@ export const FOLDERS = [
       {
         slug: 'html',
         title: 'HTML',
-        description: 'La estructura de una página: etiquetas, formularios y semántica.',
-        tags: ['estructura', 'semantica', 'formularios'],
+        description: 'La estructura de una página web, etiqueta por etiqueta, con formularios y accesibilidad.',
+        tags: ['web', 'básico', 'formularios', 'accesibilidad'],
         icon: '/icons/html.png',
       },
       {
         slug: 'css',
         title: 'CSS',
-        description: 'Selectores, modelo de caja, flexbox, grid y diseño responsive.',
-        tags: ['estilos', 'layout', 'responsive'],
+        description: 'Selectores, cascada, box model, Flexbox, Grid, responsive y animaciones.',
+        tags: ['web', 'estilos', 'layout', 'responsive'],
         icon: '/icons/css.png',
       },
       {
         slug: 'javascript',
         title: 'JavaScript',
-        description: 'Sintaxis, funciones, arrays, objetos y manejo del DOM.',
-        tags: ['lenguaje', 'dom', 'funciones'],
+        description: 'Variables, funciones, arrays, objetos, DOM, eventos, fetch y async/await.',
+        tags: ['web', 'dom', 'async'],
         icon: '/icons/javascript.png',
       },
     ],
@@ -71,8 +71,8 @@ export const FOLDERS = [
       {
         slug: 'arduino',
         title: 'Arduino',
-        description: 'Pines, sensores y el ciclo setup y loop.',
-        tags: ['hardware', 'sensores'],
+        description: 'Programar un Arduino UNO: pines, electrónica mínima, C++, #define, puerto serie y errores típicos.',
+        tags: ['c++', 'uno', 'electrónica', 'serial'],
         icon: '/icons/arduino.png',
       },
     ],
