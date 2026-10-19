@@ -2,9 +2,6 @@ import { cx } from '../lib/cx.js';
 import { CodeBlock } from './CodeBlock.jsx';
 import { Kbd } from './Kbd.jsx';
 
-// Lenguajes que se resaltan como comandos de terminal en CodeBlock.
-const SHELL = new Set(['bash', 'sh', 'shell', 'zsh', 'console', 'powershell', 'ps1', 'cmd']);
-
 const ENTITIES = {
   amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', copy: '©', reg: '®',
   mdash: '—', ndash: '–', hellip: '…', rarr: '→', larr: '←', times: '×',
@@ -102,7 +99,7 @@ function Block({ token }) {
       return token.tokens ? <>{renderInline(token.tokens)}</> : decode(token.text);
     case 'code': {
       const lang = (token.lang || '').split(/\s/)[0].toLowerCase();
-      return <CodeBlock code={token.text} title={lang && lang !== 'text' ? lang : undefined} shell={SHELL.has(lang)} />;
+      return <CodeBlock code={token.text} title={lang && lang !== 'text' ? lang : undefined} language={lang} />;
     }
     case 'list': {
       const Tag = token.ordered ? 'ol' : 'ul';

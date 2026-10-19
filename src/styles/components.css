@@ -93,8 +93,24 @@ a.nf-chip:hover{border-color:var(--accent,var(--lime))}
 .nf-code-copy.is-copied{background:var(--lime);color:var(--on-accent);font-weight:700}
 .nf-code pre{margin:0;padding:var(--space-4) var(--space-5);overflow-x:auto;color:var(--ink)}
 .nf-code code{font:inherit}
-.nf-code .c-cmd{color:var(--lime)}
-.nf-code .c-muted{color:var(--muted)}
+/* Resaltado de código: colores del tema Dark+ de VS Code (tokens syn-*). De menos a más específico. */
+.nf-code .token.operator,.nf-code .token.punctuation{color:var(--syn-operator)}
+.nf-code .token.comment,.nf-code .token.cdata{color:var(--syn-comment)}
+.nf-code .token.keyword,.nf-code .token.boolean,.nf-code .token.important,.nf-code .token.entity,.nf-code .token.doctype,.nf-code .token.interpolation-punctuation,.nf-code .token.tag{color:var(--syn-keyword)}
+.nf-code .token.control,.nf-code .token.rule,.nf-code .token.macro,.nf-code .token.directive,.nf-code .token.directive-hash{color:var(--syn-control)}
+.nf-code .token.string,.nf-code .token.char,.nf-code .token.template-string,.nf-code .token.attr-value,.nf-code .token.value,.nf-code .token.hexcode,.nf-code .token.color{color:var(--syn-string)}
+.nf-code .token.number,.nf-code .token.unit{color:var(--syn-number)}
+.nf-code .token.function,.nf-code .token.decorator,.nf-code .language-python .token.builtin{color:var(--syn-function)}
+.nf-code .token.class-name,.nf-code .token.builtin{color:var(--syn-type)}
+.nf-code .token.variable,.nf-code .token.property,.nf-code .token.parameter,.nf-code .token.attr-name{color:var(--syn-variable)}
+.nf-code .token.constant,.nf-code .token.symbol{color:var(--syn-constant)}
+.nf-code .token.selector{color:var(--syn-selector)}
+.nf-code .token.regex{color:var(--syn-regex)}
+.nf-code .token.prolog,.nf-code .token.tag .token.punctuation{color:var(--syn-punctuation)}
+.nf-code .token.tag .token.attr-equals{color:var(--syn-operator)}
+.nf-code .token.attr-value .token.punctuation:not(.attr-equals){color:var(--syn-string)}
+.nf-code .token.selector .token.punctuation{color:inherit}
+.nf-code .token.command{color:var(--lime)}
 
 .nf-palette-backdrop{position:fixed;inset:0;z-index:60;display:grid;place-items:start center;padding:15vh var(--space-4) 0;background:color-mix(in srgb,var(--surface-0) 72%,transparent);backdrop-filter:blur(4px)}
 .nf-palette{width:min(560px,100%);border:1px solid var(--line-strong);border-radius:var(--radius-lg);background:var(--code-bg);box-shadow:var(--shadow-window);overflow:clip}

@@ -1,12 +1,27 @@
-import { Fragment, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { cx } from '../lib/cx.js';
+import { highlight } from '../lib/highlight.js';
+
+function Tokens({ nodes }) {
+  return nodes.map((node, i) =>
+    typeof node === 'string' ? (
+      node
+    ) : (
+      <span key={i} className={node.className}>
+        <Tokens nodes={node.children} />
+      </span>
+    ),
+  );
+}
 
 /**
- * Bloque de código con botón Copiar ("✓ Copiado" durante 1,6 s).
- * Con `shell` (por defecto) la primera palabra de cada línea va en lima y las líneas con # en gris.
+ * Bloque de código con botón Copiar ("✓ Copiado" durante 1,6 s) y colores como en VS Code (tema Dark+).
+ * `language` (html, css, js, ts, cpp, json, python, bash…) elige el resaltado; sin lenguaje conocido
+ * (por ejemplo `text`) el código se muestra en un solo color.
  */
-export function CodeBlock({ code, title, language, shell = true, className }) {
+export function CodeBlock({ code, title, language, className }) {
   const [copied, setCopied] = useState(false);
+  const result = useMemo(() => highlight(code, language), [code, language]);
 
   function copy() {
     const done = () => {
@@ -17,30 +32,6 @@ export function CodeBlock({ code, title, language, shell = true, className }) {
     else done();
   }
 
-  const lines = code.split('\n').map((line, i) => {
-    let content = line;
-    if (shell && /^\s*#/.test(line)) {
-      content = <span className="c-muted">{line}</span>;
-    } else if (shell) {
-      const match = /^(\s*)(\S+)([\s\S]*)$/.exec(line);
-      if (match) {
-        content = (
-          <>
-            {match[1]}
-            <span className="c-cmd">{match[2]}</span>
-            {match[3]}
-          </>
-        );
-      }
-    }
-    return (
-      <Fragment key={i}>
-        {i > 0 && '\n'}
-        {content}
-      </Fragment>
-    );
-  });
-
   return (
     <figure className={cx('nf-code', className)}>
       <figcaption className="nf-code-bar">
@@ -50,7 +41,9 @@ export function CodeBlock({ code, title, language, shell = true, className }) {
         </button>
       </figcaption>
       <pre>
-        <code>{lines}</code>
+        <code className={result ? `language-${result.name}` : undefined}>
+          {result ? <Tokens nodes={result.nodes} /> : code}
+        </code>
       </pre>
     </figure>
   );
