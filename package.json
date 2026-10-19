@@ -1,36 +1,21 @@
 {
-  "name": "joaco-cheatsheet",
-  "type": "module",
-  "version": "0.1.0",
+  "name": "notefast",
   "private": true,
-  "description": "Webapp personal de cheatsheets en Markdown con estética de terminal",
-  "engines": {
-    "node": ">=22.12.0"
-  },
+  "version": "0.1.0",
+  "description": "NoteFast: cheatsheets de código ordenados en carpetas",
+  "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "check": "astro check",
-    "format": "prettier --write .",
-    "astro": "astro"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nitkinjoaco/joaco_cheatsheet.git"
-  },
-  "allowScripts": {
-    "esbuild": true
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tokens": "node scripts/build-tokens.mjs"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.3.3",
-    "tailwindcss": "^4.3.3"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "prettier": "^3.9.7",
-    "prettier-plugin-astro": "^1.0.0",
-    "typescript": "^6.0.3"
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
   }
 }

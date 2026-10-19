@@ -1,0 +1,111 @@
+/* Generado desde design/tokens.json con `npm run tokens`. No lo edites a mano. */
+
+:root,
+[data-theme='dark'] {
+  --surface-0: #0b0714;
+  --surface-1: #14101c;
+  --surface-2: #1c1826;
+  --surface-3: #100c18;
+  --code-bg: #0d1117;
+  --line: #2a2438;
+  --line-strong: #3d3848;
+  --control-border: #8b8499;
+  --ink: #f2f0f5;
+  --ink-soft: #cfc6e0;
+  --muted: #9a93a8;
+  --lime: #b6ff2e;
+  --pink: #ff5ce1;
+  --amber: #ff8a1f;
+  --cyan: #22e4ff;
+  --on-accent: #0b0714;
+  --cat-backend: var(--lime);
+  --cat-frontend: var(--pink);
+  --cat-hardware: var(--amber);
+  --glow-teal: #1ba6b8;
+  --glow-violet: #8a2fb5;
+  --glow-magenta: #c2227a;
+  --glow-amber: #d9822b;
+  --dot-red: #ff5f56;
+  --dot-yellow: #ffbd2e;
+  --dot-green: #27c93f;
+  --shadow-window: 0 24px 60px -24px #000000bf;
+  --shadow-lift: 0 16px 40px -20px #000000cc;
+  --shadow-glow-lime: 0 0 32px -4px #b6ff2e66;
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+  --z-nav: 40;
+  --z-palette: 60;
+  --font-display: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --font-ui: "Space Mono", ui-monospace, "Cascadia Code", monospace;
+  --font-code: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+}
+
+.display-hero {
+  font-family: var(--font-display);
+  font-size: 8rem;
+  line-height: 0.9;
+  font-weight: 400;
+}
+.display-title {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 400;
+}
+.display-sub {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  line-height: 1.05;
+  font-weight: 400;
+}
+.folder-name {
+  font-family: var(--font-ui);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.ui-lg {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.ui-md {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.ui-strong {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+.ui-sm {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.code {
+  font-family: var(--font-code);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  font-weight: 400;
+}
